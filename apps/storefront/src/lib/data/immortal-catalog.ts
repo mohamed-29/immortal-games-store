@@ -64,6 +64,15 @@ function toCatalogProduct(product: MedusaCatalogProduct): CatalogProduct | null 
       ar: stringMetadata(metadata, "title_ar", fallback?.name.ar ?? product.title),
     },
     shortName: fallback?.shortName ?? product.title.toUpperCase().slice(0, 18),
+    image: stringMetadata(
+      metadata,
+      "image",
+      fallback?.image ?? "/immortal-games-logo.jpg"
+    ),
+    imageFit:
+      metadata.image_fit === "contain" || fallback?.imageFit === "contain"
+        ? "contain"
+        : "cover",
     description: {
       en: product.description ?? fallback?.description.en ?? "",
       ar: stringMetadata(

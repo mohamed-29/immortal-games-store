@@ -17,6 +17,8 @@ const launchProducts = [
     handle: "ea-sports-fc-26",
     title: "EA SPORTS FC 26",
     titleAr: "EA SPORTS FC 26",
+    image: "/images/catalog/ea-sports-fc-26.jpg",
+    imageFit: "contain",
     description:
       "Football built for match day. Ask for the available PS4 or PS5 edition.",
     descriptionAr:
@@ -32,6 +34,8 @@ const launchProducts = [
     handle: "minecraft",
     title: "Minecraft",
     titleAr: "ماينكرافت",
+    image: "/images/catalog/minecraft.jpg",
+    imageFit: "contain",
     description:
       "Build, explore, and survive in a world that is different every time.",
     descriptionAr: "ابنِ واستكشف وابقَ في عالم مختلف في كل مرة.",
@@ -46,6 +50,8 @@ const launchProducts = [
     handle: "helldivers-2",
     title: "HELLDIVERS 2",
     titleAr: "HELLDIVERS 2",
+    image: "/images/catalog/helldivers-2.png",
+    imageFit: "cover",
     description:
       "Join the fight for freedom in an intense co-op third-person shooter.",
     descriptionAr: "انضم إلى معركة الحرية في لعبة تصويب تعاونية قوية.",
@@ -60,6 +66,8 @@ const launchProducts = [
     handle: "palworld",
     title: "Palworld",
     titleAr: "Palworld",
+    image: "/images/catalog/palworld.jpg",
+    imageFit: "cover",
     description:
       "Adventure, survival, crafting, and mysterious creatures in one open world.",
     descriptionAr:
@@ -75,6 +83,8 @@ const launchProducts = [
     handle: "playstation-store-wallet",
     title: "PlayStation Store Wallet",
     titleAr: "رصيد متجر PlayStation",
+    image: "/images/catalog/playstation-store-wallet.jpg",
+    imageFit: "contain",
     description:
       "Top up your PlayStation Store wallet. Region and value are confirmed before payment.",
     descriptionAr:
@@ -90,6 +100,8 @@ const launchProducts = [
     handle: "playstation-plus",
     title: "PlayStation Plus",
     titleAr: "PlayStation Plus",
+    image: "/images/catalog/playstation-plus.png",
+    imageFit: "contain",
     description:
       "Essential, Extra, or Deluxe membership options. Ask for available duration and region.",
     descriptionAr:
@@ -105,6 +117,8 @@ const launchProducts = [
     handle: "steam-wallet",
     title: "Steam Wallet",
     titleAr: "رصيد Steam",
+    image: "/images/catalog/steam-wallet.png",
+    imageFit: "contain",
     description:
       "Add funds for PC games and in-game content. Currency and value are confirmed first.",
     descriptionAr:
@@ -120,6 +134,8 @@ const launchProducts = [
     handle: "xbox-game-pass",
     title: "Xbox Game Pass",
     titleAr: "Xbox Game Pass",
+    image: "/images/catalog/xbox-game-pass.jpg",
+    imageFit: "contain",
     description:
       "Ask about currently available Game Pass plans, durations, and activation regions.",
     descriptionAr:
@@ -135,6 +151,8 @@ const launchProducts = [
     handle: "shahid-vip",
     title: "Shahid VIP",
     titleAr: "شاهد VIP",
+    image: "/images/catalog/shahid-vip.webp",
+    imageFit: "contain",
     description:
       "Entertainment subscription options. Ask for the available plan and duration.",
     descriptionAr:
@@ -153,6 +171,34 @@ const categoryNames = {
   pc: "PC Games",
   codes: "Digital Codes",
   subscriptions: "Subscriptions",
+}
+
+const featuredHandles = new Set([
+  "ea-sports-fc-26",
+  "minecraft",
+  "helldivers-2",
+  "palworld",
+  "playstation-store-wallet",
+  "playstation-plus",
+])
+
+function getProductMetadata(product: (typeof launchProducts)[number]) {
+  return {
+    title_ar: product.titleAr,
+    description_ar: product.descriptionAr,
+    category: product.category,
+    platform_en: product.platform,
+    platform_ar: product.platformAr,
+    availability_status: "ask",
+    show_price: false,
+    delivery_type: product.category === "codes" ? "digital_code" : "manual",
+    featured: featuredHandles.has(product.handle),
+    accent: product.accent,
+    accent_soft: product.accentSoft,
+    mark: product.mark,
+    image: product.image,
+    image_fit: product.imageFit,
+  }
 }
 
 export default async function seedImmortalCatalog({ container }: ExecArgs) {
@@ -238,7 +284,7 @@ export default async function seedImmortalCatalog({ container }: ExecArgs) {
   })
   const { data: existingProducts } = await query.graph({
     entity: "product",
-    fields: ["id", "handle", "status"],
+    fields: ["id", "handle", "status", "metadata"],
   })
   const launchHandles = new Set(launchProducts.map((product) => product.handle))
   const demoProducts = existingProducts.filter(
@@ -252,6 +298,37 @@ export default async function seedImmortalCatalog({ container }: ExecArgs) {
           id: product.id,
           status: ProductStatus.DRAFT,
         })),
+      },
+    })
+  }
+
+  const launchProductsToUpdate = existingProducts.flatMap((existing) => {
+    const product = launchProducts.find(
+      (candidate) => candidate.handle === existing.handle
+    )
+
+    if (!product) {
+      return []
+    }
+
+    return [
+      {
+        id: existing.id,
+        title: product.title,
+        description: product.description,
+        status: ProductStatus.PUBLISHED,
+        metadata: {
+          ...(existing.metadata ?? {}),
+          ...getProductMetadata(product),
+        },
+      },
+    ]
+  })
+
+  if (launchProductsToUpdate.length > 0) {
+    await updateProductsWorkflow(container).run({
+      input: {
+        products: launchProductsToUpdate,
       },
     })
   }
@@ -284,28 +361,7 @@ export default async function seedImmortalCatalog({ container }: ExecArgs) {
             category_ids: [category.id],
             shipping_profile_id: shippingProfile.id,
             sales_channels: [{ id: salesChannel.id }],
-            metadata: {
-              title_ar: product.titleAr,
-              description_ar: product.descriptionAr,
-              category: product.category,
-              platform_en: product.platform,
-              platform_ar: product.platformAr,
-              availability_status: "ask",
-              show_price: false,
-              delivery_type:
-                product.category === "codes" ? "digital_code" : "manual",
-              featured: [
-                "ea-sports-fc-26",
-                "minecraft",
-                "helldivers-2",
-                "palworld",
-                "playstation-store-wallet",
-                "playstation-plus",
-              ].includes(product.handle),
-              accent: product.accent,
-              accent_soft: product.accentSoft,
-              mark: product.mark,
-            },
+            metadata: getProductMetadata(product),
             options: [
               {
                 title: "Platform",

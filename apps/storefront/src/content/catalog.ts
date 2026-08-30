@@ -13,6 +13,8 @@ export type CatalogProduct = {
   handle: string
   name: LocalizedCopy
   shortName: string
+  image: string
+  imageFit?: "cover" | "contain"
   description: LocalizedCopy
   category: Exclude<CatalogCategory, "all">
   platform: LocalizedCopy
@@ -49,6 +51,10 @@ export const storeCopy = {
     flexiblePricingCopy: "See a price when listed, or ask us for today’s offer.",
     digitalFirst: "Digital-first",
     digitalFirstCopy: "Fast help with codes, games, and subscriptions.",
+    hotDealsEyebrow: "From our Facebook page",
+    hotDealsTitle: "Hot deals",
+    hotDealsCopy:
+      "Browse recent Immortal offers, then message us to confirm the current price and availability.",
     trendingEyebrow: "Popular right now",
     trendingTitle: "Trending picks",
     trendingCopy:
@@ -139,6 +145,10 @@ export const storeCopy = {
     flexiblePricingCopy: "شاهد السعر عند عرضه أو اسألنا عن عرض اليوم.",
     digitalFirst: "خدمة رقمية أولاً",
     digitalFirstCopy: "مساعدة سريعة للأكواد والألعاب والاشتراكات.",
+    hotDealsEyebrow: "من صفحتنا على فيسبوك",
+    hotDealsTitle: "أقوى العروض",
+    hotDealsCopy:
+      "تصفح عروض إيمورتال ثم راسلنا لتأكيد السعر الحالي والتوفر.",
     trendingEyebrow: "الأكثر طلباً الآن",
     trendingTitle: "اختيارات رائجة",
     trendingCopy:
@@ -211,6 +221,8 @@ export const catalogProducts: CatalogProduct[] = [
     handle: "ea-sports-fc-26",
     name: { en: "EA SPORTS FC 26", ar: "EA SPORTS FC 26" },
     shortName: "FC 26",
+    image: "/images/catalog/ea-sports-fc-26.jpg",
+    imageFit: "contain",
     description: {
       en: "Football built for match day. Ask for the available PS4 or PS5 edition.",
       ar: "تجربة كرة قدم ليوم المباراة. اسأل عن نسخة PS4 أو PS5 المتوفرة.",
@@ -227,6 +239,8 @@ export const catalogProducts: CatalogProduct[] = [
     handle: "minecraft",
     name: { en: "Minecraft", ar: "ماينكرافت" },
     shortName: "MINECRAFT",
+    image: "/images/catalog/minecraft.jpg",
+    imageFit: "contain",
     description: {
       en: "Build, explore, and survive in a world that is different every time.",
       ar: "ابنِ واستكشف وابقَ في عالم مختلف في كل مرة.",
@@ -243,6 +257,7 @@ export const catalogProducts: CatalogProduct[] = [
     handle: "helldivers-2",
     name: { en: "HELLDIVERS 2", ar: "HELLDIVERS 2" },
     shortName: "HELLDIVERS",
+    image: "/images/catalog/helldivers-2.png",
     description: {
       en: "Join the fight for freedom in an intense co-op third-person shooter.",
       ar: "انضم إلى معركة الحرية في لعبة تصويب تعاونية قوية.",
@@ -259,6 +274,7 @@ export const catalogProducts: CatalogProduct[] = [
     handle: "palworld",
     name: { en: "Palworld", ar: "Palworld" },
     shortName: "PALWORLD",
+    image: "/images/catalog/palworld.jpg",
     description: {
       en: "Adventure, survival, crafting, and mysterious creatures in one open world.",
       ar: "مغامرة وبقاء وصناعة ومخلوقات غامضة داخل عالم مفتوح.",
@@ -275,6 +291,8 @@ export const catalogProducts: CatalogProduct[] = [
     handle: "playstation-store-wallet",
     name: { en: "PlayStation Store Wallet", ar: "رصيد متجر PlayStation" },
     shortName: "PS WALLET",
+    image: "/images/catalog/playstation-store-wallet.jpg",
+    imageFit: "contain",
     description: {
       en: "Top up your PlayStation Store wallet. Region and value are confirmed before payment.",
       ar: "اشحن رصيد متجر PlayStation. يتم تأكيد المنطقة والقيمة قبل الدفع.",
@@ -291,6 +309,8 @@ export const catalogProducts: CatalogProduct[] = [
     handle: "playstation-plus",
     name: { en: "PlayStation Plus", ar: "PlayStation Plus" },
     shortName: "PS PLUS",
+    image: "/images/catalog/playstation-plus.png",
+    imageFit: "contain",
     description: {
       en: "Essential, Extra, or Deluxe membership options. Ask for available duration and region.",
       ar: "خيارات Essential أو Extra أو Deluxe. اسأل عن المدة والمنطقة المتوفرة.",
@@ -307,6 +327,8 @@ export const catalogProducts: CatalogProduct[] = [
     handle: "steam-wallet",
     name: { en: "Steam Wallet", ar: "رصيد Steam" },
     shortName: "STEAM",
+    image: "/images/catalog/steam-wallet.png",
+    imageFit: "contain",
     description: {
       en: "Add funds for PC games and in-game content. Currency and value are confirmed first.",
       ar: "أضف رصيداً لألعاب الكمبيوتر والمحتوى داخل الألعاب. نؤكد العملة والقيمة أولاً.",
@@ -323,6 +345,8 @@ export const catalogProducts: CatalogProduct[] = [
     handle: "xbox-game-pass",
     name: { en: "Xbox Game Pass", ar: "Xbox Game Pass" },
     shortName: "GAME PASS",
+    image: "/images/catalog/xbox-game-pass.jpg",
+    imageFit: "contain",
     description: {
       en: "Ask about currently available Game Pass plans, durations, and activation regions.",
       ar: "اسأل عن خطط Game Pass والمدد ومناطق التفعيل المتوفرة حالياً.",
@@ -339,6 +363,8 @@ export const catalogProducts: CatalogProduct[] = [
     handle: "shahid-vip",
     name: { en: "Shahid VIP", ar: "شاهد VIP" },
     shortName: "SHAHID",
+    image: "/images/catalog/shahid-vip.webp",
+    imageFit: "contain",
     description: {
       en: "Entertainment subscription options. Ask for the available plan and duration.",
       ar: "خيارات اشتراك ترفيهي. اسأل عن الخطة والمدة المتوفرة.",

@@ -10,6 +10,7 @@ import {
 } from "@/content/catalog"
 import { getImmortalCatalog } from "@/lib/data/immortal-catalog"
 import { ArrowUpRight, WhatsAppIcon } from "@/modules/immortal/components/icons"
+import HotDealsSlider from "@/modules/immortal/components/hot-deals-slider"
 import ProductCard from "@/modules/immortal/components/product-card"
 
 type HomeProps = {
@@ -42,10 +43,30 @@ export default async function Home({ params }: HomeProps) {
   const catalogProducts = await getImmortalCatalog()
   const featuredProducts = catalogProducts.filter((product) => product.featured)
   const categoryCards = [
-    { key: "playstation", mark: "PS", number: "01" },
-    { key: "pc", mark: "PC", number: "02" },
-    { key: "codes", mark: "#", number: "03" },
-    { key: "subscriptions", mark: "+", number: "04" },
+    {
+      key: "playstation",
+      image: "/images/catalog/ea-sports-fc-26.jpg",
+      mark: "PS",
+      number: "01",
+    },
+    {
+      key: "pc",
+      image: "/images/catalog/helldivers-2.png",
+      mark: "PC",
+      number: "02",
+    },
+    {
+      key: "codes",
+      image: "/images/catalog/playstation-store-wallet.jpg",
+      mark: "#",
+      number: "03",
+    },
+    {
+      key: "subscriptions",
+      image: "/images/catalog/xbox-game-pass.jpg",
+      mark: "+",
+      number: "04",
+    },
   ] as const
 
   return (
@@ -53,11 +74,11 @@ export default async function Home({ params }: HomeProps) {
       <section className="hero-section">
         <div className="hero-section__media">
           <Image
-            alt="Immortal Games Store dark fantasy artwork"
+            alt="EA SPORTS FC 26 official game artwork"
             fill
             priority
             sizes="100vw"
-            src="/immortal-games-logo.jpg"
+            src="/images/catalog/ea-sports-fc-26.jpg"
           />
           <span className="hero-section__veil" />
           <span className="hero-section__scanlines" />
@@ -101,6 +122,19 @@ export default async function Home({ params }: HomeProps) {
         </div>
       </section>
 
+      <section className="hot-deals-section page-shell" id="hot-deals">
+        <div className="section-heading section-heading--split">
+          <div>
+            <p className="eyebrow"><span />{copy.hotDealsEyebrow}</p>
+            <h2>{copy.hotDealsTitle}</h2>
+          </div>
+          <div className="section-heading__aside">
+            <p>{copy.hotDealsCopy}</p>
+          </div>
+        </div>
+        <HotDealsSlider locale={locale} />
+      </section>
+
       <section aria-label="Store benefits" className="benefit-strip">
         <div className="page-shell benefit-strip__grid">
           <article>
@@ -133,8 +167,13 @@ export default async function Home({ params }: HomeProps) {
         </div>
 
         <div className="product-grid">
-          {featuredProducts.map((product) => (
-            <ProductCard key={product.handle} locale={locale} product={product} />
+          {featuredProducts.map((product, index) => (
+            <ProductCard
+              key={product.handle}
+              locale={locale}
+              priority={index < 2}
+              product={product}
+            />
           ))}
         </div>
       </section>
@@ -154,6 +193,9 @@ export default async function Home({ params }: HomeProps) {
                 href={`/${locale}/catalog?category=${category.key}`}
                 key={category.key}
               >
+                <span className="category-card__image" aria-hidden="true">
+                  <Image alt="" fill sizes="(max-width: 760px) 100vw, 50vw" src={category.image} />
+                </span>
                 <span className="category-card__number">{category.number}</span>
                 <span className="category-card__mark">{category.mark}</span>
                 <span className="category-card__content">

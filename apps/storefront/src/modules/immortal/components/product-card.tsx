@@ -1,3 +1,4 @@
+import Image from "next/image"
 import Link from "next/link"
 
 import { CatalogProduct, Locale, storeCopy } from "@/content/catalog"
@@ -10,7 +11,11 @@ type ProductCardProps = {
   priority?: boolean
 }
 
-export default function ProductCard({ locale, product }: ProductCardProps) {
+export default function ProductCard({
+  locale,
+  product,
+  priority = false,
+}: ProductCardProps) {
   const copy = storeCopy[locale]
 
   return (
@@ -26,9 +31,15 @@ export default function ProductCard({ locale, product }: ProductCardProps) {
           } as React.CSSProperties
         }
       >
-        <span className="product-card__grid" />
-        <span className="product-card__orb" />
-        <span className="product-card__mark">{product.mark}</span>
+        <Image
+          alt={product.name[locale]}
+          className={`product-card__image product-card__image--${product.imageFit ?? "cover"}`}
+          fill
+          priority={priority}
+          sizes="(max-width: 760px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          src={product.image}
+        />
+        <span className="product-card__image-shade" />
         <span className="product-card__short-name">{product.shortName}</span>
         <span className="product-card__platform">{product.platform[locale]}</span>
       </Link>

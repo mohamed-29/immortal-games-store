@@ -1,4 +1,5 @@
 import { Metadata } from "next"
+import Image from "next/image"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 
@@ -40,6 +41,17 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
   return {
     title: product.name[countryCode],
     description: product.description[countryCode],
+    openGraph: {
+      title: product.name[countryCode],
+      description: product.description[countryCode],
+      images: [{ url: product.image, alt: product.name[countryCode] }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: product.name[countryCode],
+      description: product.description[countryCode],
+      images: [product.image],
+    },
   }
 }
 
@@ -79,9 +91,15 @@ export default async function ProductPage({ params }: ProductPageProps) {
               } as React.CSSProperties
             }
           >
-            <span className="product-card__grid" />
-            <span className="product-detail__orb" />
-            <span className="product-detail__mark">{product.mark}</span>
+            <Image
+              alt={product.name[countryCode]}
+              className={`product-detail__image product-detail__image--${product.imageFit ?? "cover"}`}
+              fill
+              priority
+              sizes="(max-width: 900px) 100vw, 50vw"
+              src={product.image}
+            />
+            <span className="product-detail__image-shade" />
             <span className="product-detail__short-name">{product.shortName}</span>
             <span className="product-detail__edition">IMMORTAL CATALOG EDITION</span>
           </div>
