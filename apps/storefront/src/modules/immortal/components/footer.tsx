@@ -2,6 +2,7 @@ import Image from "next/image"
 import Link from "next/link"
 
 import { getWhatsappUrl, Locale, storeCopy } from "@/content/catalog"
+import { storePageCopy, storePages } from "@/content/store-pages"
 import { ArrowUpRight } from "./icons"
 
 type FooterProps = {
@@ -46,6 +47,17 @@ export default function ImmortalFooter({ locale }: FooterProps) {
             <Link href={`${catalogBase}?category=subscriptions`}>
               {copy.navigation.subscriptions}
             </Link>
+          </div>
+        </div>
+
+        <div>
+          <h2>{storePageCopy[locale].importantLinks}</h2>
+          <div className="footer-links">
+            {storePages.map((page) => (
+              <Link href={`/${locale}/${page.slug}`} key={page.slug}>
+                {page.title[locale]}
+              </Link>
+            ))}
           </div>
         </div>
 

@@ -37,7 +37,8 @@ export default function ImmortalNav({ locale }: NavProps) {
               <Link href={`${catalogBase}?category=subscriptions`}>
                 {copy.navigation.subscriptions}
               </Link>
-              <Link href={`/${locale}#about`}>{copy.navigation.about}</Link>
+              <Link href={`/${locale}/about`}>{copy.navigation.about}</Link>
+              <Link href={`/${locale}/contact`}>{copy.contact}</Link>
             </div>
           </details>
 

@@ -10,6 +10,7 @@ import {
 } from "@/content/catalog"
 import { getImmortalCatalog } from "@/lib/data/immortal-catalog"
 import { ArrowUpRight, WhatsAppIcon } from "@/modules/immortal/components/icons"
+import { storePageCopy } from "@/content/store-pages"
 import HotDealsSlider from "@/modules/immortal/components/hot-deals-slider"
 import ProductCard from "@/modules/immortal/components/product-card"
 
@@ -242,6 +243,9 @@ export default async function Home({ params }: HomeProps) {
             <p className="eyebrow"><span />{copy.aboutEyebrow}</p>
             <h2>{copy.aboutTitle}</h2>
             <p>{copy.aboutCopy}</p>
+            <Link className="text-link" href={`/${locale}/about`}>
+              {storePageCopy[locale].readMore}<ArrowUpRight />
+            </Link>
             <a
               className="text-link"
               href="https://www.facebook.com/Immortal.G.Store"
