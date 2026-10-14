@@ -21,6 +21,15 @@ export default function ImmortalNav({ locale }: NavProps) {
       </div>
       <header className="site-header">
         <nav aria-label="Primary navigation" className="site-nav page-shell">
+          <Link aria-label="Immortal Games Store" className="brand-lockup" href={`/${locale}`}>
+            <Image
+              alt="Immortal Games Store"
+              height={80}
+              priority
+              src="/brand/immortal-logo-primary.png"
+              width={240}
+            />
+          </Link>
           <details className="mobile-menu">
             <summary aria-label="Open navigation">
               <MenuIcon />
@@ -48,23 +57,6 @@ export default function ImmortalNav({ locale }: NavProps) {
               {copy.navigation.playstation}
             </Link>
             <Link href={`${catalogBase}?category=pc`}>{copy.navigation.pc}</Link>
-          </div>
-
-          <Link className="brand-lockup" href={`/${locale}`}>
-            <Image
-              alt="Immortal Games Store"
-              height={56}
-              priority
-              src="/immortal-games-logo.jpg"
-              width={56}
-            />
-            <span>
-              <strong>IMMORTAL</strong>
-              <small>GAMES STORE</small>
-            </span>
-          </Link>
-
-          <div className="site-nav__links site-nav__links--end">
             <Link href={`${catalogBase}?category=codes`}>
               {copy.navigation.codes}
             </Link>
@@ -90,7 +82,7 @@ export default function ImmortalNav({ locale }: NavProps) {
               target="_blank"
             >
               <WhatsAppIcon />
-              <span>WhatsApp</span>
+              <span>{locale === "ar" ? "واتساب" : "WhatsApp"}</span>
               <ArrowUpRight />
             </a>
           </div>

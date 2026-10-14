@@ -40,13 +40,13 @@ export async function generateMetadata({ params }: StorePageProps): Promise<Meta
       description,
       url: `/${countryCode}/${slug}`,
       locale: countryCode === "ar" ? "ar_EG" : "en_US",
-      images: [{ url: "/og.png", alt: "Immortal Games Store" }],
+      images: [{ url: "/brand/immortal-logo-wide.png", alt: "Immortal Games Store" }],
     },
     twitter: {
       card: "summary_large_image",
       title: `${title} | Immortal Games Store`,
       description,
-      images: ["/og.png"],
+      images: ["/brand/immortal-logo-wide.png"],
     },
   }
 }

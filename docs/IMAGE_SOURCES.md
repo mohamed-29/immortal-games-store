@@ -2,6 +2,10 @@
 
 All storefront images are downloaded and stored locally. The live site does not hotlink product artwork.
 
+## Updated wordmark
+
+The owner supplied four transparent PNG logos on 15 October 2026. They are preserved as provided in `apps/storefront/public/brand/`. The primary version (08_49_21 PM) is used in the header, footer, and About section; the wide version is used in social metadata. The light and classic variants remain available for future brand uses. No artwork was redrawn or stretched into a background.
+
 ## Immortal Games Store assets
 
 - Store logo and four Hot Deals posts: [Immortal Games Store on Facebook](https://www.facebook.com/Immortal.G.Store)

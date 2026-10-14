@@ -41,6 +41,10 @@ export const storeCopy = {
     languageLabel: "Switch to Arabic",
     heroEyebrow: "Immortal Games Store",
     heroTitle: "Your next game lives here.",
+    heroTitleLead: "Your next game.",
+    heroTitleAccent: "Lives here.",
+    heroShowcase: "Your next adventure",
+    heroSupport: "Personal support. Before and after you buy.",
     heroDescription:
       "PlayStation and PC games, digital codes, wallet cards, and subscriptions—backed by fast, personal help on WhatsApp.",
     browse: "Browse catalog",
@@ -135,6 +139,10 @@ export const storeCopy = {
     languageLabel: "التبديل إلى الإنجليزية",
     heroEyebrow: "إيمورتال جيمز ستور",
     heroTitle: "لعبتك القادمة تبدأ من هنا.",
+    heroTitleLead: "لعبتك القادمة.",
+    heroTitleAccent: "تبدأ من هنا.",
+    heroShowcase: "مغامرتك القادمة",
+    heroSupport: "دعم شخصي. قبل الشراء وبعده.",
     heroDescription:
       "ألعاب بلايستيشن وكمبيوتر، أكواد رقمية، بطاقات شحن واشتراكات—مع مساعدة شخصية وسريعة عبر واتساب.",
     browse: "تصفح الكتالوج",

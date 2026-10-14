@@ -89,7 +89,7 @@ const escape = (text) => String(text).replace(/[&<>"']/g, (character) => ({
   "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
 })[character])
 
-async function writePage(route, locale, title, description, content, image = "/og.png") {
+async function writePage(route, locale, title, description, content, image = "/brand/immortal-logo-wide.png") {
   const alternate = route.replace(`/${locale}`, locale === "en" ? "/ar" : "/en")
   const body = renderToStaticMarkup(React.createElement(React.Fragment, null,
     React.createElement(Nav, { locale }), content, React.createElement(Footer, { locale })
@@ -103,7 +103,7 @@ async function writePage(route, locale, title, description, content, image = "/o
 <meta property="og:image" content="${escape(new URL(image, origin).href)}"><meta property="og:url" content="${escape(new URL(route, origin).href)}">
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${escape(title)} | Immortal Games Store">
 <meta name="twitter:description" content="${escape(description)}"><meta name="twitter:image" content="${escape(new URL(image, origin).href)}">
-<link rel="icon" href="/favicon.ico"><link rel="stylesheet" href="/assets/store.css"><script src="/assets/site.js" defer></script>
+<link rel="icon" href="/brand/immortal-logo-primary.png"><link rel="stylesheet" href="/assets/store.css"><script src="/assets/site.js" defer></script>
 </head><body><main>${body}</main></body></html>`
   const directory = path.join(output, route)
   fs.mkdirSync(directory, { recursive: true })
@@ -111,9 +111,16 @@ async function writePage(route, locale, title, description, content, image = "/o
 }
 
 async function build() {
+  if (fs.existsSync(output)) {
+    if (fs.lstatSync(output).isSymbolicLink() || path.dirname(output) !== root) {
+      throw new Error("The generated dist directory must stay inside the Site checkout")
+    }
+    fs.rmSync(output, { recursive: true, force: true })
+  }
   fs.mkdirSync(path.join(output, "assets"), { recursive: true })
   fs.cpSync(path.join(app, "public"), output, { recursive: true })
-  const inputCss = fs.readFileSync(path.join(app, "src/styles/globals.css"), "utf8")
+  const inputCss = (fs.readFileSync(path.join(app, "src/styles/globals.css"), "utf8")
+    + "\n" + fs.readFileSync(path.join(app, "src/styles/brand-refresh.css"), "utf8"))
     .replace('@import "tailwindcss/base";', "@tailwind base;")
     .replace('@import "tailwindcss/components";', "@tailwind components;")
     .replace('@import "tailwindcss/utilities";', "@tailwind utilities;")

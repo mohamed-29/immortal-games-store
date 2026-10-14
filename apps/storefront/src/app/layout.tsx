@@ -4,6 +4,7 @@ import { Inter, Noto_Kufi_Arabic, Rajdhani } from "next/font/google"
 
 import { getBaseURL } from "@lib/util/env"
 import "styles/globals.css"
+import "styles/brand-refresh.css"
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-body" })
 
@@ -28,6 +29,10 @@ export const metadata: Metadata = {
   description:
     "Browse PlayStation and PC games, digital codes, wallet cards, and subscriptions. Confirm availability and order personally on WhatsApp.",
   applicationName: "Immortal Games Store",
+  icons: {
+    icon: "/brand/immortal-logo-primary.png",
+    apple: "/brand/immortal-logo-primary.png",
+  },
   keywords: [
     "Immortal Games Store",
     "PS5 games Egypt",
@@ -41,9 +46,9 @@ export const metadata: Metadata = {
     description: "Your next game lives here.",
     images: [
       {
-        url: "/og.png",
-        width: 1200,
-        height: 630,
+        url: "/brand/immortal-logo-wide.png",
+        width: 2058,
+        height: 764,
         alt: "Immortal Games Store — Games, Digital Codes, Subscriptions",
       },
     ],
@@ -54,7 +59,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Immortal Games Store",
     description: "Games, digital codes, and subscriptions with personal support.",
-    images: ["/og.png"],
+    images: ["/brand/immortal-logo-wide.png"],
   },
 }
 

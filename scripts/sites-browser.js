@@ -17,7 +17,9 @@
     const dots = [...slider.querySelectorAll(".hot-deals-slider__dots button")]
     const arrows = slider.querySelectorAll(".hot-deals-slider__controls > button")
     let active = 0
-    let paused = false
+    let hovered = false
+    let focused = false
+    let manuallyPaused = false
     const select = (index) => {
       active = (index + slides.length) % slides.length
       track.style.transform = `translateX(-${active * 100}%)`
@@ -32,14 +34,23 @@
     }
     arrows[0]?.addEventListener("click", () => select(active - 1))
     arrows[1]?.addEventListener("click", () => select(active + 1))
+    const pauseButton = slider.querySelector(".hot-deals-slider__pause")
+    pauseButton?.addEventListener("click", () => {
+      manuallyPaused = !manuallyPaused
+      pauseButton.setAttribute("aria-pressed", String(manuallyPaused))
+      pauseButton.setAttribute("aria-label", manuallyPaused ? pauseButton.dataset.resumeLabel : pauseButton.dataset.pauseLabel)
+      pauseButton.querySelector("span").textContent = manuallyPaused ? ">" : "Ⅱ"
+    })
     dots.forEach((dot, index) => dot.addEventListener("click", () => select(index)))
-    slider.addEventListener("mouseenter", () => { paused = true })
-    slider.addEventListener("mouseleave", () => { paused = false })
-    slider.addEventListener("focusin", () => { paused = true })
-    slider.addEventListener("focusout", () => { paused = false })
+    slider.addEventListener("mouseenter", () => { hovered = true })
+    slider.addEventListener("mouseleave", () => { hovered = false })
+    slider.addEventListener("focusin", () => { focused = true })
+    slider.addEventListener("focusout", (event) => {
+      if (!slider.contains(event.relatedTarget)) focused = false
+    })
     select(0)
     if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      window.setInterval(() => { if (!paused && !document.hidden) select(active + 1) }, 6500)
+      window.setInterval(() => { if (!hovered && !focused && !manuallyPaused && !document.hidden) select(active + 1) }, 6500)
     }
   }
 

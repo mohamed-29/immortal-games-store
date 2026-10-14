@@ -40,7 +40,6 @@ export default function ProductCard({
           src={product.image}
         />
         <span className="product-card__image-shade" />
-        <span className="product-card__short-name">{product.shortName}</span>
         <span className="product-card__platform">{product.platform[locale]}</span>
       </Link>
 

@@ -33,6 +33,8 @@ const sliderCopy = {
     confirm: "Message us to confirm the current price and availability.",
     action: "Ask about this deal",
     viewPost: "Visit Facebook",
+    pause: "Pause slides",
+    resume: "Resume slides",
   },
   ar: {
     previous: "العرض السابق",
@@ -41,6 +43,8 @@ const sliderCopy = {
     confirm: "راسلنا لتأكيد السعر الحالي والتوفر.",
     action: "اسأل عن العرض",
     viewPost: "زيارة فيسبوك",
+    pause: "إيقاف العرض التلقائي",
+    resume: "تشغيل العرض التلقائي",
   },
 } as const
 
@@ -50,10 +54,13 @@ type HotDealsSliderProps = {
 
 export default function HotDealsSlider({ locale }: HotDealsSliderProps) {
   const [activeDeal, setActiveDeal] = useState(0)
+  const [paused, setPaused] = useState(false)
+  const [hovered, setHovered] = useState(false)
+  const [focused, setFocused] = useState(false)
   const copy = sliderCopy[locale]
 
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    if (paused || hovered || focused || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       return
     }
 
@@ -62,7 +69,7 @@ export default function HotDealsSlider({ locale }: HotDealsSliderProps) {
     }, 6500)
 
     return () => window.clearInterval(timer)
-  }, [])
+  }, [paused, hovered, focused])
 
   const previousDeal = () => {
     setActiveDeal((current) => (current - 1 + deals.length) % deals.length)
@@ -73,7 +80,17 @@ export default function HotDealsSlider({ locale }: HotDealsSliderProps) {
   }
 
   return (
-    <div className="hot-deals-slider">
+    <div
+      aria-label={locale === "ar" ? "أقوى العروض" : "Hot deals"}
+      className="hot-deals-slider"
+      onBlurCapture={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false)
+      }}
+      onFocusCapture={() => setFocused(true)}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      role="region"
+    >
       <div className="hot-deals-slider__viewport" dir="ltr">
         <div
           className="hot-deals-slider__track"
@@ -82,6 +99,7 @@ export default function HotDealsSlider({ locale }: HotDealsSliderProps) {
           {deals.map((deal, index) => (
             <article
               aria-hidden={index !== activeDeal}
+              inert={index !== activeDeal}
               className="hot-deal"
               dir={locale === "ar" ? "rtl" : "ltr"}
               key={deal.image}
@@ -146,6 +164,17 @@ export default function HotDealsSlider({ locale }: HotDealsSliderProps) {
         </div>
         <button aria-label={copy.next} onClick={nextDeal} type="button">
           <ArrowLeft className="hot-deals-slider__next-icon" />
+        </button>
+        <button
+          aria-label={paused ? copy.resume : copy.pause}
+          aria-pressed={paused}
+          className="hot-deals-slider__pause"
+          data-pause-label={copy.pause}
+          data-resume-label={copy.resume}
+          onClick={() => setPaused((current) => !current)}
+          type="button"
+        >
+          <span aria-hidden="true">{paused ? ">" : "Ⅱ"}</span>
         </button>
       </div>
     </div>

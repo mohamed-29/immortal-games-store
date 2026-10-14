@@ -43,6 +43,11 @@ export default async function Home({ params }: HomeProps) {
   const copy = storeCopy[locale]
   const catalogProducts = await getImmortalCatalog()
   const featuredProducts = catalogProducts.filter((product) => product.featured)
+  const showcaseProducts = ["ea-sports-fc-26", "helldivers-2", "palworld"]
+    .flatMap((handle) => {
+      const product = catalogProducts.find((item) => item.handle === handle)
+      return product ? [product] : []
+    })
   const categoryCards = [
     {
       key: "playstation",
@@ -72,31 +77,18 @@ export default async function Home({ params }: HomeProps) {
 
   return (
     <div className="home-page">
-      <section className="hero-section">
-        <div className="hero-section__media">
-          <Image
-            alt="EA SPORTS FC 26 official game artwork"
-            fill
-            priority
-            sizes="100vw"
-            src="/images/catalog/ea-sports-fc-26.jpg"
-          />
-          <span className="hero-section__veil" />
-          <span className="hero-section__scanlines" />
-        </div>
-
-        <div className="page-shell hero-section__content">
-          <div className="hero-section__copy">
-            <p className="eyebrow eyebrow--bright">
-              <span />
-              {copy.heroEyebrow}
-            </p>
-            <h1>{copy.heroTitle}</h1>
-            <p className="hero-section__description">{copy.heroDescription}</p>
+      <section className="store-hero">
+        <div className="page-shell store-hero__layout">
+          <div className="store-hero__copy">
+            <p className="eyebrow eyebrow--bright"><span />{copy.heroEyebrow}</p>
+            <h1>
+              {copy.heroTitleLead}
+              <span>{copy.heroTitleAccent}</span>
+            </h1>
+            <p className="store-hero__description">{copy.heroDescription}</p>
             <div className="button-row">
               <Link className="button button--primary" href={`/${locale}/catalog`}>
-                {copy.browse}
-                <ArrowUpRight />
+                {copy.browse}<ArrowUpRight />
               </Link>
               <a
                 className="button button--ghost"
@@ -104,36 +96,51 @@ export default async function Home({ params }: HomeProps) {
                 rel="noreferrer"
                 target="_blank"
               >
-                <WhatsAppIcon />
-                {copy.whatsapp}
+                <WhatsAppIcon />{copy.whatsapp}
               </a>
+            </div>
+            <p className="store-hero__support"><WhatsAppIcon />{copy.heroSupport}</p>
+            <div className="store-hero__platforms" aria-label={copy.categoriesTitle}>
+              {(["playstation", "pc", "codes", "subscriptions"] as const).map((category) => (
+                <Link href={`/${locale}/catalog?category=${category}`} key={category}>
+                  {copy.filters[category]}
+                </Link>
+              ))}
             </div>
           </div>
 
-          <div aria-hidden="true" className="hero-section__crest">
-            <span className="hero-section__crest-line" />
-            <Image alt="" height={154} src="/immortal-games-logo.jpg" width={154} />
-            <span>EST. ON FACEBOOK</span>
+          <div className="store-hero__showcase">
+            <div className="store-hero__showcase-heading">
+              <h2>{copy.heroShowcase}</h2>
+              <span aria-hidden="true">01 / 03</span>
+            </div>
+            <div className="store-hero__games">
+              {showcaseProducts.map((product, index) => (
+                <Link
+                  aria-label={product.name[locale]}
+                  className={`store-hero__game${index === 0 ? " store-hero__game--featured" : ""}`}
+                  href={`/${locale}/products/${product.handle}`}
+                  key={product.handle}
+                >
+                  <Image
+                    alt=""
+                    className="store-hero__game-image"
+                    fill
+                    priority={index === 0}
+                    sizes={index === 0 ? "(max-width: 980px) 100vw, 50vw" : "(max-width: 980px) 45vw, 25vw"}
+                    src={product.image}
+                  />
+                  <span className="store-hero__game-shade" />
+                  <span className="store-hero__game-info">
+                    <small>{product.platform[locale]}</small>
+                    <strong>{product.name[locale]}</strong>
+                  </span>
+                  <span className="store-hero__game-arrow"><ArrowUpRight /></span>
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
-
-        <div className="hero-section__index" aria-hidden="true">
-          <span>IMMORTAL / 001</span>
-          <span>CAIRO, EGYPT</span>
-        </div>
-      </section>
-
-      <section className="hot-deals-section page-shell" id="hot-deals">
-        <div className="section-heading section-heading--split">
-          <div>
-            <p className="eyebrow"><span />{copy.hotDealsEyebrow}</p>
-            <h2>{copy.hotDealsTitle}</h2>
-          </div>
-          <div className="section-heading__aside">
-            <p>{copy.hotDealsCopy}</p>
-          </div>
-        </div>
-        <HotDealsSlider locale={locale} />
       </section>
 
       <section aria-label="Store benefits" className="benefit-strip">
@@ -151,6 +158,19 @@ export default async function Home({ params }: HomeProps) {
             <div><h2>{copy.digitalFirst}</h2><p>{copy.digitalFirstCopy}</p></div>
           </article>
         </div>
+      </section>
+
+      <section className="hot-deals-section page-shell" id="hot-deals">
+        <div className="section-heading section-heading--split">
+          <div>
+            <p className="eyebrow"><span />{copy.hotDealsEyebrow}</p>
+            <h2>{copy.hotDealsTitle}</h2>
+          </div>
+          <div className="section-heading__aside">
+            <p>{copy.hotDealsCopy}</p>
+          </div>
+        </div>
+        <HotDealsSlider locale={locale} />
       </section>
 
       <section className="section page-shell" id="trending">
@@ -230,14 +250,14 @@ export default async function Home({ params }: HomeProps) {
 
       <section className="about-section" id="about">
         <div className="page-shell about-section__grid">
-          <div className="about-section__media">
+          <div className="about-section__media about-section__media--wordmark">
             <Image
               alt="Immortal Games Store emblem"
               fill
               sizes="(max-width: 768px) 100vw, 45vw"
-              src="/immortal-games-logo.jpg"
+              src="/brand/immortal-logo-primary.png"
             />
-            <span className="about-section__frame" />
+            <span className="about-section__signature">EST. ON FACEBOOK / EGYPT</span>
           </div>
           <div className="about-section__copy">
             <p className="eyebrow"><span />{copy.aboutEyebrow}</p>

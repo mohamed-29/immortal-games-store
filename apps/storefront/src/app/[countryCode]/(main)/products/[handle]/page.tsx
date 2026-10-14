@@ -101,7 +101,6 @@ export default async function ProductPage({ params }: ProductPageProps) {
             />
             <span className="product-detail__image-shade" />
             <span className="product-detail__short-name">{product.shortName}</span>
-            <span className="product-detail__edition">IMMORTAL CATALOG EDITION</span>
           </div>
 
           <div className="product-detail__copy">

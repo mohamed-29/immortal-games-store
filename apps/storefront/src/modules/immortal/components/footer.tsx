@@ -20,14 +20,10 @@ export default function ImmortalFooter({ locale }: FooterProps) {
           <Link className="footer-lockup" href={`/${locale}`}>
             <Image
               alt="Immortal Games Store"
-              height={78}
-              src="/immortal-games-logo.jpg"
-              width={78}
+              height={96}
+              src="/brand/immortal-logo-primary.png"
+              width={288}
             />
-            <span>
-              <strong>IMMORTAL</strong>
-              <small>GAMES STORE</small>
-            </span>
           </Link>
           <p>{copy.footerCopy}</p>
           <span className="footer-note">{copy.noCheckout}</span>
@@ -87,7 +83,7 @@ export default function ImmortalFooter({ locale }: FooterProps) {
 
       <div className="page-shell site-footer__bottom">
         <span>© {new Date().getFullYear()} {copy.rights}</span>
-        <span>Powered by Medusa + Next.js</span>
+        <span>{locale === "ar" ? "مصمم للاعبين في مصر" : "Built for gamers in Egypt"}</span>
       </div>
     </footer>
   )

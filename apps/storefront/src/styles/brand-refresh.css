@@ -1,0 +1,717 @@
+:root {
+  --base: #060b14;
+  --surface: #0b1320;
+  --surface-raised: #101d30;
+  --border-soft: rgba(133, 181, 230, 0.15);
+  --blue: #178dff;
+  --blue-bright: #68cfff;
+  --muted: #adbbcf;
+  --page-width: 1380px;
+  --header-height: 96px;
+}
+
+.site-header {
+  background: rgba(6, 11, 20, 0.94);
+}
+
+.site-nav {
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 28px;
+}
+
+.site-nav__links--start {
+  justify-content: center;
+  gap: clamp(16px, 1.6vw, 25px);
+}
+
+.brand-lockup,
+.footer-lockup {
+  line-height: 0;
+}
+
+.brand-lockup img {
+  border: 0;
+  height: 80px;
+  object-fit: contain;
+  width: 240px;
+}
+
+.footer-lockup img {
+  border: 0;
+  height: 96px;
+  max-width: 100%;
+  object-fit: contain;
+  width: 288px;
+}
+
+.nav-whatsapp {
+  border: 1px solid rgba(104, 207, 255, 0.3);
+  border-radius: 9px;
+  clip-path: none;
+  min-height: 44px;
+}
+
+.eyebrow {
+  color: var(--blue-bright);
+  font-size: 11px;
+}
+
+.button {
+  border-radius: 10px;
+  clip-path: none;
+  min-height: 52px;
+}
+
+.button--primary {
+  background: linear-gradient(135deg, #249bff, #0668dc);
+  box-shadow: 0 8px 30px rgba(0, 111, 230, 0.2);
+}
+
+.button--ghost {
+  background: rgba(10, 19, 34, 0.7);
+}
+
+.store-hero {
+  background:
+    radial-gradient(ellipse at 75% 45%, rgba(14, 111, 218, 0.14), transparent 55%),
+    linear-gradient(180deg, #08101d, var(--base));
+  border-bottom: 1px solid var(--border-soft);
+  overflow: hidden;
+}
+
+.store-hero__layout {
+  align-items: center;
+  display: grid;
+  gap: clamp(36px, 5vw, 76px);
+  grid-template-columns: 1.05fr 1fr;
+  min-height: 640px;
+  padding-block: 58px;
+}
+
+.store-hero h1 {
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(52px, 5.5vw, 84px);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin: 0;
+}
+
+.store-hero h1 > span {
+  color: var(--blue-bright);
+  display: block;
+  margin-top: 6px;
+}
+
+html[lang="ar"] .store-hero h1 {
+  font-family: var(--font-arabic), sans-serif;
+  font-size: clamp(38px, 4.2vw, 62px);
+  letter-spacing: -0.04em;
+  line-height: 1.55;
+}
+
+.store-hero__description {
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.8;
+  margin: 24px 0 30px;
+  max-width: 520px;
+}
+
+.store-hero .button-row {
+  gap: 12px;
+}
+
+.store-hero .button {
+  font-size: 12px;
+  padding-inline: 19px;
+}
+
+.store-hero__support {
+  align-items: center;
+  color: #8fa3ba;
+  display: flex;
+  font-size: 12px;
+  gap: 9px;
+  line-height: 1.7;
+  margin-top: 23px;
+}
+
+.store-hero__support svg {
+  color: var(--whatsapp);
+  flex-shrink: 0;
+  height: 17px;
+  width: 17px;
+}
+
+.store-hero__platforms {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-top: 30px;
+}
+
+.store-hero__platforms a {
+  border: 1px solid var(--border-soft);
+  border-radius: 6px;
+  color: #a8b8cc;
+  font-size: 11px;
+  padding: 8px 12px;
+  transition: background 180ms ease, color 180ms ease;
+}
+
+.store-hero__platforms a:hover {
+  background: #112d48;
+  color: white;
+}
+
+.store-hero__showcase {
+  min-width: 0;
+}
+
+.store-hero__showcase-heading {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.store-hero__showcase-heading h2 {
+  color: #c5d3e4;
+  font-size: 12px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.store-hero__showcase-heading > span {
+  color: #637a96;
+  font-family: var(--font-display), sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+}
+
+.store-hero__games {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.store-hero__game {
+  aspect-ratio: 1.7;
+  background: #0d1b2a;
+  border: 1px solid rgba(140, 181, 221, 0.22);
+  border-radius: 13px;
+  display: block;
+  overflow: hidden;
+  position: relative;
+  transition: border-color 200ms ease, transform 200ms ease;
+}
+
+.store-hero__game--featured {
+  aspect-ratio: 1.65;
+  grid-column: 1 / -1;
+}
+
+.store-hero__game:hover {
+  border-color: var(--blue-bright);
+  transform: translateY(-3px);
+}
+
+.store-hero__game-image {
+  object-fit: cover;
+  object-position: center 35%;
+  transition: transform 450ms ease;
+}
+
+.store-hero__game--featured .store-hero__game-image {
+  object-position: center;
+}
+
+.store-hero__game:hover .store-hero__game-image {
+  transform: scale(1.035);
+}
+
+.store-hero__game-shade {
+  background: linear-gradient(180deg, transparent 40%, rgba(2, 7, 15, 0.96));
+  inset: 0;
+  position: absolute;
+}
+
+.store-hero__game-info {
+  bottom: 17px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  inset-inline-start: 18px;
+  max-width: calc(100% - 66px);
+  position: absolute;
+}
+
+.store-hero__game-info small {
+  color: #a8dcff;
+  font-family: var(--font-display), sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+}
+
+.store-hero__game-info strong {
+  font-family: var(--font-display), sans-serif;
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.store-hero__game--featured .store-hero__game-info strong {
+  font-size: 29px;
+}
+
+.store-hero__game-arrow {
+  align-items: center;
+  background: rgba(7, 19, 33, 0.6);
+  border: 1px solid rgba(217, 235, 255, 0.3);
+  border-radius: 7px;
+  bottom: 18px;
+  display: flex;
+  height: 31px;
+  inset-inline-end: 17px;
+  justify-content: center;
+  position: absolute;
+  width: 31px;
+}
+
+.store-hero__game-arrow svg {
+  height: 15px;
+  width: 15px;
+}
+
+.benefit-strip {
+  background: #080f1b;
+}
+
+.benefit-strip article > span {
+  color: var(--blue-bright);
+}
+
+.section,
+.hot-deals-section,
+.category-section {
+  padding-block: clamp(70px, 7vw, 100px);
+}
+
+.section-heading {
+  margin-bottom: 38px;
+}
+
+.section-heading h2,
+.process-section h2,
+.about-section h2,
+.whatsapp-cta h2 {
+  font-size: clamp(36px, 4vw, 55px);
+  line-height: 1.08;
+}
+
+.hot-deals-slider {
+  border-radius: 16px;
+}
+
+.hot-deal {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+  min-height: 560px;
+}
+
+.hot-deal__media {
+  background: #060a11;
+  min-height: 560px;
+}
+
+.hot-deal__media img {
+  object-fit: contain;
+}
+
+.hot-deal__media::after,
+[dir="rtl"] .hot-deal__media::after {
+  display: none;
+}
+
+.hot-deal__copy {
+  padding: 38px 42px 90px;
+}
+
+.hot-deal h3 {
+  font-size: clamp(36px, 4vw, 54px);
+  line-height: 1.04;
+}
+
+.hot-deal__badge {
+  border-radius: 5px;
+}
+
+.hot-deal__count {
+  margin-top: 32px;
+}
+
+.hot-deals-slider__controls > button {
+  border-radius: 8px;
+}
+
+.product-grid {
+  gap: 22px;
+}
+
+.product-card {
+  border-radius: 13px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.product-card::before {
+  display: none;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+}
+
+.product-card__visual {
+  aspect-ratio: 4 / 3;
+  min-height: 0;
+}
+
+.product-card__image {
+  object-fit: contain;
+  padding: 24px 16px 16px;
+}
+
+.product-card__image-shade {
+  background: linear-gradient(180deg, rgba(3, 8, 18, 0.6), transparent 25%, transparent 90%, rgba(3, 8, 18, 0.2));
+}
+
+.product-card__platform {
+  background: rgba(4, 11, 22, 0.85);
+  border: 1px solid rgba(143, 190, 234, 0.2);
+  border-radius: 5px;
+  color: #c5e5ff;
+  left: auto;
+  inset-inline-start: 14px;
+  padding: 6px 9px;
+  top: 13px;
+}
+
+[dir="rtl"] .product-card__platform {
+  right: auto;
+  inset-inline-start: 14px;
+}
+
+.product-card__body {
+  background: #0c1422;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 18px;
+  justify-content: space-between;
+  padding: 23px;
+}
+
+.product-card__footer {
+  border-top: 1px solid var(--border-soft);
+  padding-top: 16px;
+}
+
+.icon-action {
+  border-radius: 8px;
+}
+
+.category-card {
+  border-radius: 12px;
+  gap: 14px;
+  grid-template-columns: 60px 1fr auto;
+  min-height: 180px;
+}
+
+.category-card__number {
+  display: none;
+}
+
+.category-card__mark {
+  font-size: 40px;
+}
+
+.category-card__content {
+  padding-inline: 0 20px;
+}
+
+.category-card__content strong {
+  font-size: clamp(24px, 2.2vw, 32px);
+}
+
+.about-section__media--wordmark {
+  align-items: center;
+  aspect-ratio: 1.65;
+  background: radial-gradient(ellipse at center, #10233b, #080f1b 75%);
+  border: 1px solid var(--border-soft);
+  border-radius: 16px;
+  display: flex;
+}
+
+.about-section__media--wordmark img {
+  object-fit: contain;
+  padding: 36px;
+}
+
+.about-section__media--wordmark::after {
+  display: none;
+}
+
+.about-section__signature {
+  bottom: 22px;
+  color: #6f8caa;
+  font-family: var(--font-display), sans-serif;
+  font-size: 10px;
+  left: 0;
+  letter-spacing: 0.2em;
+  position: absolute;
+  text-align: center;
+  width: 100%;
+}
+
+.about-section__copy .text-link {
+  margin-inline-end: 24px;
+  margin-top: 14px;
+}
+
+.product-detail__visual {
+  border-radius: 15px;
+}
+
+.product-detail__visual::after {
+  display: none;
+}
+
+@media (max-width: 1150px) {
+  .site-nav {
+    gap: 16px;
+    grid-template-columns: auto 1fr auto;
+  }
+
+  .site-nav__links {
+    display: none;
+  }
+
+  .mobile-menu {
+    display: block;
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .brand-lockup {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: center;
+  }
+
+  .site-nav__actions {
+    grid-column: 3;
+    grid-row: 1;
+  }
+
+  .nav-whatsapp span,
+  .nav-whatsapp svg:last-child {
+    display: none;
+  }
+
+  .store-hero__layout {
+    gap: 35px;
+  }
+}
+
+@media (max-width: 980px) {
+  :root {
+    --header-height: 82px;
+  }
+
+  .brand-lockup img {
+    height: 70px;
+    width: 210px;
+  }
+
+  .store-hero__layout {
+    grid-template-columns: 1fr;
+    padding-block: 46px;
+  }
+
+  .store-hero__copy {
+    max-width: 650px;
+  }
+
+  .store-hero__showcase {
+    width: 100%;
+  }
+
+  .store-hero__games {
+    grid-template-columns: 1.5fr 1fr;
+  }
+
+  .store-hero__game--featured {
+    aspect-ratio: auto;
+    grid-column: 1;
+    grid-row: 1 / 3;
+  }
+
+  .hot-deal {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  .hot-deal__media {
+    aspect-ratio: 1;
+    min-height: 0;
+  }
+
+  .hot-deal__copy {
+    padding: 30px;
+  }
+
+  .product-card__visual {
+    min-height: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  :root {
+    --header-height: 74px;
+  }
+
+  .announcement-bar {
+    font-size: 9px;
+    letter-spacing: 0.05em;
+  }
+
+  .site-nav {
+    gap: 9px;
+    padding-inline: 16px;
+  }
+
+  .brand-lockup img {
+    height: 54px;
+    width: 162px;
+  }
+
+  .mobile-menu summary {
+    width: 32px;
+  }
+
+  .site-nav__actions {
+    gap: 9px;
+  }
+
+  .language-switch {
+    border: 0;
+    padding: 0;
+  }
+
+  .nav-whatsapp {
+    height: 38px;
+    min-height: 38px;
+    min-width: 36px;
+    padding-inline: 9px;
+  }
+
+  .store-hero__layout {
+    gap: 34px;
+    padding-block: 38px;
+  }
+
+  .store-hero h1 {
+    font-size: clamp(45px, 10vw, 60px);
+  }
+
+  html[lang="ar"] .store-hero h1 {
+    font-size: 34px;
+  }
+
+  .store-hero__description {
+    font-size: 14px;
+    margin-block: 20px 24px;
+  }
+
+  .store-hero .button-row {
+    flex-wrap: wrap;
+  }
+
+  .store-hero .button {
+    flex: 1 1 160px;
+    justify-content: center;
+  }
+
+  .store-hero__platforms {
+    gap: 7px;
+    margin-top: 22px;
+  }
+
+  .store-hero__games {
+    gap: 10px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .store-hero__game--featured {
+    aspect-ratio: 1.65;
+    grid-column: 1 / -1;
+    grid-row: auto;
+  }
+
+  .store-hero__game-info {
+    bottom: 13px;
+    inset-inline-start: 12px;
+    max-width: calc(100% - 45px);
+  }
+
+  .store-hero__game-info strong {
+    font-size: 15px;
+  }
+
+  .store-hero__game-arrow {
+    bottom: 13px;
+    height: 24px;
+    inset-inline-end: 9px;
+    width: 24px;
+  }
+
+  .product-card__visual {
+    min-height: 0;
+  }
+
+  .product-card__body {
+    padding: 20px;
+  }
+
+  .category-card {
+    gap: 10px;
+    grid-template-columns: 44px 1fr;
+    padding: 24px;
+  }
+
+  .category-card__mark {
+    font-size: 32px;
+  }
+
+  .category-card__action {
+    grid-column: 2;
+    justify-self: start;
+  }
+
+  .about-section__media--wordmark {
+    aspect-ratio: 1.65;
+  }
+
+  .about-section__media--wordmark img {
+    padding: 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .store-hero__game,
+  .store-hero__game-image {
+    transition: none;
+  }
+}
